@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -21,14 +22,16 @@ public class MyUtil {
 	public static <T> Map<String, Object> castMap(T entity)
 			throws IllegalArgumentException, IllegalAccessException,
 			InvocationTargetException, SecurityException, NoSuchMethodException {
-		Map<String, Object> map = new HashMap<String, Object>();
-		Field[] field = entity.getClass().getDeclaredFields();
+		Map<String, Object> map = new LinkedHashMap<String, Object>();
+		List<Field> field = new ArrayList<Field>();
+		getFields(field, entity.getClass());
 		for (Field f : field) {
 			String fieldName = f.getName();
 			Method m = null;
 			try {
-				m = entity.getClass().getDeclaredMethod(
-						"get" + initcap(fieldName), new Class[0]);
+//				m = entity.getClass().getDeclaredMethod(
+//						"get" + initcap(fieldName), new Class[0]);
+				m = ReflectUtil.getMethod(entity.getClass(), "get" + initcap(fieldName), new Class[0]);
 			} catch (Exception localException) {
 			}
 			if (m != null) {
@@ -39,6 +42,13 @@ public class MyUtil {
 			}
 		}
 		return map;
+	}
+	
+	public static <T> void getFields(List<Field> field, Class<T> c) {
+		field.addAll(ListUtil.arrayToList(c.getDeclaredFields()));
+		if(c.getSuperclass() != null) {
+			getFields(field, c.getSuperclass());
+		}
 	}
 
 	public static <T> T castEntity(Class<T> c, Map<String, Object> map)
