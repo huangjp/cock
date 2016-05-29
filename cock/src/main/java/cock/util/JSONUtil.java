@@ -1,10 +1,3 @@
-/*
- * 文件名：JSONUtil.java	 
- * 时     间：上午11:18:23
- * 作     者：huangjp       
- * 版     权： 2014-2022  智慧园区, 公司保留所有权利.
- * 联     系：www.szyungu.com
- */
 package cock.util;
 
 import java.io.IOException;

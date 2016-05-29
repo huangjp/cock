@@ -29,8 +29,6 @@ public class MyUtil {
 			String fieldName = f.getName();
 			Method m = null;
 			try {
-//				m = entity.getClass().getDeclaredMethod(
-//						"get" + initcap(fieldName), new Class[0]);
 				m = ReflectUtil.getMethod(entity.getClass(), "get" + initcap(fieldName), new Class[0]);
 			} catch (Exception localException) {
 			}
