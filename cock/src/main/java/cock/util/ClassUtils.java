@@ -308,12 +308,12 @@ public class ClassUtils {
      * @return the <code>List</code> of interfaces in order,
      *  <code>null</code> if null input
      */
-    public static List getAllInterfaces(Class cls) {
+    public static List<?> getAllInterfaces(Class<?> cls) {
         if (cls == null) {
             return null;
         }
 
-        List interfacesFound = new ArrayList();
+        List<Class<?>> interfacesFound = new ArrayList<Class<?>>();
         getAllInterfaces(cls, interfacesFound);
 
         return interfacesFound;
@@ -325,9 +325,9 @@ public class ClassUtils {
      * @param cls  the class to look up, may be <code>null</code>
      * @param interfacesFound the <code>Set</code> of interfaces for the class
      */
-    private static void getAllInterfaces(Class cls, List interfacesFound) {
+    private static void getAllInterfaces(Class<?> cls, List<Class<?>> interfacesFound) {
         while (cls != null) {
-            Class[] interfaces = cls.getInterfaces();
+            Class<?>[] interfaces = cls.getInterfaces();
 
             for (int i = 0; i < interfaces.length; i++) {
                 if (!interfacesFound.contains(interfaces[i])) {
@@ -354,12 +354,12 @@ public class ClassUtils {
      *  <code>null</code> if null input
      * @throws ClassCastException if classNames contains a non String entry
      */
-    public static List convertClassNamesToClasses(List classNames) {
+    public static List<Class<?>> convertClassNamesToClasses(List<?> classNames) {
         if (classNames == null) {
             return null;
         }
-        List classes = new ArrayList(classNames.size());
-        for (Iterator it = classNames.iterator(); it.hasNext();) {
+        List<Class<?>> classes = new ArrayList<Class<?>>(classNames.size());
+        for (Iterator<?> it = classNames.iterator(); it.hasNext();) {
             String className = (String) it.next();
             try {
                 classes.add(Class.forName(className));
@@ -382,13 +382,13 @@ public class ClassUtils {
      *  <code>null</code> if null input
      * @throws ClassCastException if <code>classes</code> contains a non-<code>Class</code> entry
      */
-    public static List convertClassesToClassNames(List classes) {
+    public static List<Object> convertClassesToClassNames(List<?> classes) {
         if (classes == null) {
             return null;
         }
-        List classNames = new ArrayList(classes.size());
-        for (Iterator it = classes.iterator(); it.hasNext();) {
-            Class cls = (Class) it.next();
+        List<Object> classNames = new ArrayList<Object>(classes.size());
+        for (Iterator<?> it = classes.iterator(); it.hasNext();) {
+            Class<?> cls = (Class<?>) it.next();
             if (cls == null) {
                 classNames.add(null);
             } else {
