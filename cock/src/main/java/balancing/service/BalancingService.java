@@ -78,6 +78,18 @@ public class BalancingService {
 		handler.fullBalancing(nodes, resources);
 		System.out.println(handler.result());
 		
+		System.out.println("*********删除大半域************************");
+		nodes = getNodes(new String[]{"member1", "member2", "member3"});
+		resources = getResources(new String[]{"H5", "H6"});
+		handler.fullBalancing(nodes, resources);
+		System.out.println(handler.result());
+		
+		System.out.println("*********还原******************************");
+		nodes = getNodes(new String[]{"member1", "member2", "member3"});
+		resources = getResources(new String[]{"H1", "H2", "H3", "H4", "H5", "H6"});
+		handler.fullBalancing(nodes, resources);
+		System.out.println(handler.result());
+		
 		System.out.println("----------------resource change------------------");
 		System.out.println("\n");
 		System.out.println("----------------node change------------------");
@@ -142,6 +154,8 @@ public class BalancingService {
 		handler.fullBalancing(nodes, resources);
 		System.out.println(handler.result());
 		
+		System.out.println("----------------node change------------------");
+		System.out.println("\n");
 		System.out.println("----------------node change------------------");
 	}
 

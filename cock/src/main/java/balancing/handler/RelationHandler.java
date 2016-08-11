@@ -49,14 +49,16 @@ public class RelationHandler {
 	}
 	
 	private RelationHandler firstBalancing(List<Node> nodes, List<Resource> resources){
+		List<Node> preNodes = new ArrayList<>(nodes);
+		List<Resource> preResources = new ArrayList<>(resources);
 		this.nodes.clear();
 		this.lastNodes.clear();
 		this.resources.clear();
 		this.lastResources.clear();
-		this.nodes.addAll(nodes);
-		this.resources.addAll(resources);
-		this.lastNodes.addAll(nodes);
-		this.lastResources.addAll(resources);
+		this.nodes.addAll(preNodes);
+		this.resources.addAll(preResources);
+		this.lastNodes.addAll(preNodes);
+		this.lastResources.addAll(preResources);
 		
 		for(int i = 0; i < this.lastResources.size(); i++)	{
 			Resource r = this.lastResources.get(i);
@@ -221,7 +223,9 @@ public class RelationHandler {
 	 */
 	private void checkBalancing() {
 		boolean isBalancing = false;
-		while (!isBalancing) {
+		int maxCheckCount = this.lastNodes.size() / 2;
+		int count = 0;
+		while (!isBalancing && count <= maxCheckCount) {
 			Node maxNode = loadMax();
 			Node minNode = loadMin();
 			
@@ -232,6 +236,7 @@ public class RelationHandler {
 			} else {
 				isBalancing = true;
 			}
+			count++;
 		}
 	}
 	

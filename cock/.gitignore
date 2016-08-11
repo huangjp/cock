@@ -1,1 +1,11 @@
-/target/
+.classpath
+.project
+.settings
+target
+*.iml
+.idea
+bin
+xtend-gen
+target
+.DS_Store
+META-INF
